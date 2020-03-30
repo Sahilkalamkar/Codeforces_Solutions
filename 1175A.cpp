@@ -7,19 +7,23 @@ int main()
 	{
 		long long unsigned int n,k;
 		scanf("%llu%llu",&n,&k);
-		int h=0;
+		long long unsigned int h=0;
 		long long unsigned int j=n;
-		while(1)
+		while(j!=0)
 		{
-			if(j==0)
-				break;
 			if(j%k==0)
+			{
 				j=j/k;
+				h++;
+			}
 			else
-				j--;
-			h++;
+			{
+				long long unsigned int temp=j%k;
+				h=h+temp;
+				j=j-temp;
+			}
 		}
-		printf("%d\n",h);
+		printf("%llu\n",h);
 	}
 	return 0;
 }
