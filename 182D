@@ -1,0 +1,94 @@
+// Problem : D. Common Divisors
+// Contest : Codeforces - Codeforces Round #117 (Div. 2)
+// URL : https://codeforces.com/problemset/problem/182/D
+// Memory Limit : 256 MB
+// Time Limit : 2000 ms
+// Powered by CP Editor (https://github.com/cpeditor/cpeditor)
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll          long long int
+#define fast         ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define INF          1e18
+#define Vi           vector<int> 
+#define VI           vector<vector<int> >
+#define VL           vector<vector<long long int> > 
+#define PII          pair<int,int> 
+#define PLL          pair<long long int,long long int>
+#define PSI          pair<string,int>
+#define PB           push_back
+
+int dx[] = {1,-1,0,0};
+int dy[] = {0,0,-1,1};
+int DX[] = {0,-1,-1,-1,0,1,1,1};
+int DY[] = {-1,-1,0,1,1,1,0,-1};
+
+Vi factors(int n)
+{
+	Vi ans;
+	for(int i=1;i<=sqrt(n);i++)
+	{
+		if(n%i==0)
+		{
+			if(n/i == i)
+				ans.PB(i);
+			else{
+				ans.PB(i);
+				ans.PB(n/i);
+			}
+		}
+	}
+	return ans;
+}
+int main()
+{
+    fast;
+    string a,b;
+    cin >> a;
+    cin >> b;
+    int n,m;
+    n = a.length();
+    m = b.length();
+    Vi divA = factors(n);
+    Vi divB = factors(m);
+    unordered_map<string,int> ump;
+    for(int i=0;i<divA.size();i++)
+    {
+    	int f = divA[i];
+    	string s = "";
+    	for(int j=0;j<f;j++)
+    		s += a[j];
+    	int q = n/f;
+    	string ss = "";
+    	for(int j=0;j<q;j++)
+    		ss += s;
+    	if(ss==a)
+    		ump[s]=1;
+    	
+    }
+    int common = 0;
+    // for(auto it=ump.begin();it!=ump.end();it++)
+    	// cout << it->first << " ";
+    // cout << endl;
+    
+    for(int i=0;i<divB.size();i++)
+    {
+    	int f = divB[i];
+    	string s = "";
+    	for(int j=0;j<f;j++)
+    		s += b[j];
+    	int q = m/f;
+    	string ss = "";
+    	for(int j=0;j<q;j++)
+    		ss += s;
+    	if(ss==b and ump.find(s)!=ump.end())
+    	{
+    		// cout << s << " ";
+    		common+=1;
+    	}
+    		
+    	
+    }
+    cout << common << '\n';
+}
